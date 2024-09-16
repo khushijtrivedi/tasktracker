@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Backend
 
-## Getting Started
+### Language & Framework
 
-First, run the development server:
+- **Language**: Go
+- **Framework**: Gorilla Mux for routing
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Database
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Database**: MongoDB (used for storing task data)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### API Endpoints
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Create Task**
+  - **Method**: `POST`
+  - **URL**: `/tasks`
+  - **Body**: JSON object with fields: `title`, `description`, `date`, `isCompleted`
+- **Read All Tasks**
+  - **Method**: `GET`
+  - **URL**: `/tasks`
+- **Read Task by ID**
+  - **Method**: `GET`
+  - **URL**: `/tasks/{id}`
+- **Update Task**
+  - **Method**: `PUT`
+  - **URL**: `/tasks/{id}`
+  - **Body**: JSON object with fields: `title`, `description`, `date`, `isCompleted`
+- **Delete Task**
+  - **Method**: `DELETE`
+  - **URL**: `/tasks/{id}`
 
-## Learn More
+### Authentication
 
-To learn more about Next.js, take a look at the following resources:
+- Basic authentication is implemented to secure task management operations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Frontend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Framework
 
-## Deploy on Vercel
+- **Framework**: React (or another chosen framework)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Task List View: Displays all tasks with their current status and options to update or delete them.
+- Task Creation Form: Allows users to create new tasks.
+- Task Editing Form: Provides an interface to update task details.
+- Task Deletion Option: Allows users to remove tasks from the list.
+- State Management: Manages task data and interactions between the frontend and backend.
+
+## Setup Instructions
+
+### Backend
+
+1. **Install Go**: Follow the instructions on [the Go website](https://golang.org/doc/install) to install Go on your system.
+
+2. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yourusername/taskmanager.git
+   cd taskmanager/backend
+   ```
