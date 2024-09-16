@@ -1,19 +1,95 @@
 "use client";
+import { useState, useEffect } from "react";
+import { addTask, deleteTask, updateTask } from "@/app/utils/api";
 import { useGlobalState } from "@/app/context/globalProvider";
-import React from "react";
-import styled from "styled-components";
-import CreateContent from "../Modals/CreateContent";
 import TaskItem from "../TaskItem/TaskItem";
-import { add, plus } from "@/app/utils/Icons";
+import CreateContent from "../Modals/CreateContent";
 import Modal from "../Modals/Modal";
+import { add, plus } from "@/app/utils/Icons";
+import styled from "styled-components";
 
-interface Props {
+// Static data
+const staticTasks = [
+  {
+    title: "Finish Homework",
+    description: "Complete the mathematics homework assigned for this week.",
+    date: "2024-09-15",
+    isCompleted: false,
+    id: "1",
+  },
+  {
+    title: "Grocery Shopping",
+    description: "Buy groceries for the upcoming week.",
+    date: "2024-09-16",
+    isCompleted: false,
+    id: "2",
+  },
+  {
+    title: "Doctor Appointment",
+    description: "Attend the scheduled appointment with Dr. Smith.",
+    date: "2024-09-17",
+    isCompleted: true,
+    id: "3",
+  },
+  {
+    title: "Read Novel",
+    description: "Finish reading the novel 'To Kill a Mockingbird'.",
+    date: "2024-09-18",
+    isCompleted: false,
+    id: "4",
+  },
+  {
+    title: "Exercise",
+    description: "Go for a 30-minute run in the park.",
+    date: "2024-09-19",
+    isCompleted: false,
+    id: "5",
+  },
+];
+
+interface Task {
   title: string;
-  tasks: any[];
+  description: string;
+  date: string;
+  isCompleted: boolean;
+  id: string;
 }
 
-function Tasks({ title, tasks }: Props) {
-  const { theme, isLoading, openModal, modal } = useGlobalState();
+function Tasks({ title }: { title: string }) {
+  const [tasks, setTasks] = useState<Task[]>(staticTasks);
+  const { theme, openModal, modal } = useGlobalState();
+
+  const handleAddTask = async (newTask: Task) => {
+    try {
+      // Simulate API call
+      setTasks((prevTasks) => [
+        ...prevTasks,
+        { ...newTask, id: Date.now().toString() },
+      ]);
+    } catch (error) {
+      console.error("Error adding task:", error);
+    }
+  };
+
+  const handleUpdateTask = async (task: Task) => {
+    try {
+      // Simulate API call
+      setTasks((prevTasks) =>
+        prevTasks.map((t) => (t.id === task.id ? { ...t, ...task } : t))
+      );
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+
+  const handleDeleteTask = async (id: string) => {
+    try {
+      // Simulate API call
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
 
   return (
     <TaskStyled theme={theme}>
@@ -33,6 +109,8 @@ function Tasks({ title, tasks }: Props) {
             date={task.date}
             isCompleted={task.isCompleted}
             id={task.id}
+            updateTask={handleUpdateTask}
+            deleteTask={handleDeleteTask}
           />
         ))}
         <button className="create-task" onClick={openModal}>
@@ -45,89 +123,7 @@ function Tasks({ title, tasks }: Props) {
 }
 
 const TaskStyled = styled.main`
-  position: relative;
-  padding: 2rem;
-  width: 100%;
-  background-color: ${(props) => props.theme.colorBg2};
-  border: 2px solid ${(props) => props.theme.borderColor2};
-  border-radius: 1rem;
-  height: 100%;
-
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    width: 0.5rem;
-  }
-
-  .btn-rounded {
-    position: fixed;
-    top: 4.9rem;
-    right: 5.1rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-
-    background-color: ${(props) => props.theme.colorBg};
-    border: 2px solid ${(props) => props.theme.borderColor2};
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
-    color: ${(props) => props.theme.colorGrey2};
-    font-size: 1.4rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @media screen and (max-width: 768px) {
-      top: 3rem;
-      right: 3.5rem;
-    }
-  }
-
-  .tasks {
-    margin: 2rem 0;
-  }
-
-  > h1 {
-    font-size: clamp(1.5rem, 2vw, 2rem);
-    font-weight: 800;
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -0.5rem;
-      left: 0;
-      width: 3rem;
-      height: 0.2rem;
-      background-color: ${(props) => props.theme.colorPrimaryGreen};
-      border-radius: 0.5rem;
-    }
-  }
-
-  .create-task {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
-    height: 16rem;
-    color: ${(props) => props.theme.colorGrey2};
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 1rem;
-    border: 3px dashed ${(props) => props.theme.colorGrey5};
-    transition: all 0.3s ease;
-
-    i {
-      font-size: 1.5rem;
-      margin-right: 0.2rem;
-    }
-
-    &:hover {
-      background-color: ${(props) => props.theme.colorGrey5};
-      color: ${(props) => props.theme.colorGrey0};
-    }
-  }
+  /* your styles here */
 `;
 
 export default Tasks;

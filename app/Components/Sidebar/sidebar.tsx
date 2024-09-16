@@ -7,7 +7,7 @@ import Image from "next/image";
 import menu from "@/app/utils/menu";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import Button from "../Button/Button";
+import Button from "../Button/button";
 import { arrowLeft, bars, logout } from "@/app/utils/Icons";
 import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "title": "Sample Task 1",
+    "description": "This is a description for task 1.",
+    "date": "2024-09-16",
+    "isCompleted": false
+  },
+  {
+    "id": "2",
+    "title": "Sample Task 2",
+    "description": "This is a description for task 2.",
+    "date": "2024-09-17",
+    "isCompleted": true
+  }
+]
